@@ -1,42 +1,36 @@
-package home;
+package view;
 
-import client.Client;
-import onlineUsers.OnlineUsers;
-import user.User;
-import login.Login;
+import controller.HomeController;
+import model.User;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.*;
 import java.io.IOException;
 import java.net.UnknownHostException;
 
-public class Home {
+public class HomeView {
 
     public static User user = new User();
 
+    //GUI Globals - Home Window
     public static JFrame HomeWindow = new JFrame();
     private static JPanel gui = new JPanel();
-
     private static JPanel topBar = new JPanel();
     private static JLabel top = new JLabel();
-
     private static JPanel userList = new JPanel();
-
     private static JScrollPane listScroll = new JScrollPane();
-
     private static JPanel textCenter = new JPanel();
-    public static JTextArea typeText = new JTextArea();
-    private static JButton onlineUsers = new JButton();
-    private static JButton chatRoom = new JButton();
-    private static JButton logOut = new JButton();
+    public static JButton onlineUsers = new JButton();
+    public static JButton chatRoom = new JButton();
+    public static JButton logOut = new JButton();
+
 
     private static void BuildHomeWindow(){
         ConfigureHomeWindow();
-        HomeWindow_Action();
+        HomeController.HomeWindow_Action();
         HomeWindow.setVisible(true);
     }
-
 
     private static void ConfigureHomeWindow(){
 
@@ -98,72 +92,9 @@ public class Home {
 
     }
 
-    public static void HomeWindow_Action(){
-
-        HomeWindow.addWindowListener(
-                new WindowAdapter(){
-                    public void windowClosing(WindowEvent e){
-                        int result = JOptionPane.showConfirmDialog(null, "Are you sure","Confirm",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-
-                        if(result == JOptionPane.YES_OPTION){
-                            //try {
-                                //Client.output.close();
-                                HomeWindow.dispose();
-                           /* } catch (IOException e1) {
-                                // TODO Auto-generated catch block
-                                e1.printStackTrace();
-                            }*/
-
-
-                            System.exit(0);
-                        } else{
-                            //Do nothing
-                        }
-                    }
-                }
-        );
-
-        onlineUsers.addMouseListener(
-                new MouseAdapter(){
-                    public void mouseClicked(MouseEvent e) {
-                        OnlineUsers.BuildOnlineUsersWindow();
-                        OnlineUsers.Connect();
-
-                    }
-                }
-        );
-
-        chatRoom.addMouseListener(
-                    new MouseAdapter(){
-                        public void mouseClicked(MouseEvent e) {
-                            Client.BuildGroupWindow();
-                        }
-                    }
-            );
-
-        logOut.addMouseListener(
-                new MouseAdapter(){
-                    public void mouseClicked(MouseEvent e) {
-                        int result = JOptionPane.showConfirmDialog(null, "Are you sure","Confirm",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-
-                        if(result == JOptionPane.YES_OPTION){
-                                HomeWindow.dispose();
-                            System.exit(0);
-                        }
-                    }
-                }
-        );
-    }
-
-    private static void Initialize(){
-        chatRoom.setEnabled(true);
-        HomeWindow.setEnabled(true);
-    }
-
-
-    public static void main(String[] args) throws UnknownHostException, IOException{
+    public static void main(String[] args) throws UnknownHostException, IOException {
         BuildHomeWindow();
-        Initialize();
-        Login.BuildLogInWindow();
+        HomeController.Initialize();
+        LoginView.BuildLogInWindow();
     }
 }

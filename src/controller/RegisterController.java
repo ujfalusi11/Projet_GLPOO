@@ -1,10 +1,10 @@
-package registration;
+package controller;
 
-import home.Home;
-import user.User;
+import model.User;
+import view.HomeView;
+import view.RegisterView;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -14,49 +14,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class registration  {
+public class RegisterController {
 
-    private static User user = new User();
+    public static User user = new User();
 
-    private static JFrame regWindow = new JFrame();
-    private static JPanel regWindowGui = new JPanel();
-    private static JLabel regEnterUsername = new JLabel("Enter Username");
-    private static JLabel regEnterPassword = new JLabel("Enter Password");
-    private static JTextField regUsernameBox = new JTextField(20);
-    private static JTextField regPasswordBox = new JPasswordField(20);
-    private static JButton register = new JButton("Sign up");
-
-    public static void BuildRegWindow(){
-        regWindow.setTitle("Sign up");
-        ConfigureRegWindow();
-        RegWindow_Action();
-        regWindow.setVisible(true);
-    }
-
-    private static void ConfigureRegWindow(){
-        regWindow.setContentPane(regWindowGui);
-        regWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        regWindow.setMinimumSize(new Dimension(370,150));
-        regWindow.pack();
-        regWindow.setLocationRelativeTo(null);
-        try {
-            // 1.6+
-            regWindow.setLocationByPlatform(true);
-            regWindow.setMinimumSize(regWindow.getSize());
-        }
-        catch(Throwable ignoreAndContinue) {
-        }
-
-        regWindowGui.setLayout(new FlowLayout());
-        regWindowGui.add(regEnterUsername);
-        regWindowGui.add(regUsernameBox);
-        regWindowGui.add(regEnterPassword);
-        regWindowGui.add(regPasswordBox);
-        regWindowGui.add(register);
-    }
-
-    private static  void RegWindow_Action(){
-        register.addActionListener(
+    public static  void RegWindow_Action(){
+        RegisterView.register.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         REGISTER_ACTION();
@@ -67,11 +30,11 @@ public class registration  {
     }
 
     private static void REGISTER_ACTION() {
-        user.setUserName(regUsernameBox.getText());
-        user.setPassword(regPasswordBox.getText());
+        user.setUserName(RegisterView.regUsernameBox.getText());
+        user.setPassword(RegisterView.regPasswordBox.getText());
 
         try{
-            Connection con = DriverManager.getConnection("jdbc:h2:" + "./Database/user", "system", "admin");
+            Connection con = DriverManager.getConnection("jdbc:h2:" + "./Database/model.user", "system", "admin");
             Statement stmt = con.createStatement();
             if(alreadyExists(user.getUserName())){
                 JOptionPane.showMessageDialog(null, user.getUserName() + " is already taken. Choose a different one");
@@ -80,7 +43,7 @@ public class registration  {
                 stmt.executeUpdate(sql);
                 JOptionPane.showMessageDialog(null, " Welcome " + user.getUserName());
                 con.close();
-                regWindow.dispose();
+                RegisterView.regWindow.dispose();
 
                 //Create new users' conversation file
                 try {
@@ -94,9 +57,8 @@ public class registration  {
                     ioe.printStackTrace();
                 }
 
-                Home.HomeWindow.setTitle(user.getUserName());
-                Home.HomeWindow.setEnabled(true);
-                Home.typeText.requestFocus();
+                HomeView.HomeWindow.setTitle(user.getUserName());
+                HomeView.HomeWindow.setEnabled(true);
             }
             con.close();
         }catch (Exception e)
@@ -107,7 +69,7 @@ public class registration  {
 
     private static boolean alreadyExists(String userName){
         try {
-            Connection con = DriverManager.getConnection("jdbc:h2:" + "./Database/user", "system", "admin");
+            Connection con = DriverManager.getConnection("jdbc:h2:" + "./Database/model.user", "system", "admin");
             Statement stmt = con.createStatement();
             String sql = " select * FROM REGISTRATION";
             ResultSet rs = stmt.executeQuery(sql);

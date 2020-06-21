@@ -1,8 +1,7 @@
-package client;
+package controller;
 
-//import conversation.saveConversation;
-import home.Home;
-
+import view.ClientView;
+import view.HomeView;
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -66,7 +65,7 @@ public class ClientThread implements Runnable{
 					SwingUtilities.invokeLater(
 							new Runnable(){
 								public void run() {
-									Client.userOnlineList.setListData(currentUsers);
+									ClientView.userOnlineList.setListData(currentUsers);
 								}
 							}
 					);
@@ -84,7 +83,7 @@ public class ClientThread implements Runnable{
 						new Runnable(){
 							public void run() {
 
-								StyledDocument doc = Client.displayText.getStyledDocument();
+								StyledDocument doc = ClientView.displayText.getStyledDocument();
 
 								SimpleAttributeSet left = new SimpleAttributeSet();
 								StyleConstants.setAlignment(left, StyleConstants.ALIGN_LEFT);
@@ -101,7 +100,7 @@ public class ClientThread implements Runnable{
 						}
 				);
 				strr =temp2;
-				//saveConversation.add(Client.clientWindow.getTitle(), strr);
+				saveConversation.add(ClientView.clientWindow.getTitle(), strr);
 			}
 
 			else if(message.startsWith("@")){
@@ -111,7 +110,7 @@ public class ClientThread implements Runnable{
 						new Runnable(){
 							public void run() {
 
-								StyledDocument doc = Client.displayText.getStyledDocument();
+								StyledDocument doc = ClientView.displayText.getStyledDocument();
 
 								SimpleAttributeSet left = new SimpleAttributeSet();
 								StyleConstants.setAlignment(left, StyleConstants.ALIGN_LEFT);
@@ -130,7 +129,7 @@ public class ClientThread implements Runnable{
 						}
 				);
 				strr = "from @"+ temp3;
-				//saveConversation.add(Home.HomeWindow.getTitle(), strr);
+				saveConversation.add(HomeView.HomeWindow.getTitle(), strr);
 			}
 		}
 	}
@@ -144,7 +143,7 @@ public class ClientThread implements Runnable{
 						public void run() {
 							// TODO Auto-generated method stub
 
-							StyledDocument doc = Client.displayText.getStyledDocument();
+							StyledDocument doc = ClientView.displayText.getStyledDocument();
 
 							SimpleAttributeSet left = new SimpleAttributeSet();
 							StyleConstants.setAlignment(left, StyleConstants.ALIGN_LEFT);
@@ -156,7 +155,7 @@ public class ClientThread implements Runnable{
 
 							try
 							{
-								doc.insertString(doc.getLength(), "\n" + Home.HomeWindow.getTitle() + ": " + str, right );
+								doc.insertString(doc.getLength(), "\n" + HomeView.HomeWindow.getTitle() + ": " + str, right );
 								doc.setParagraphAttributes(doc.getLength(), 1, right, false);
 							}
 							catch(Exception e) {}
@@ -164,14 +163,14 @@ public class ClientThread implements Runnable{
 					}
 			);
 			writeStr = str;
-			//saveConversation.add(Home.HomeWindow.getTitle(), str);
+			saveConversation.add(HomeView.HomeWindow.getTitle(), str);
 
 		}
 		else {
-			writeStr = "@EE@|" + Home.HomeWindow.getTitle() + ": " + str;
+			writeStr = "@EE@|" + HomeView.HomeWindow.getTitle() + ": " + str;
 		}
-		Client.output.writeObject(writeStr);
-		Client.output.flush();
+		ClientController.output.writeObject(writeStr);
+		ClientController.output.flush();
 
 	}
 }

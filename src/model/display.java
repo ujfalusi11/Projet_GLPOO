@@ -1,4 +1,4 @@
-package database;
+package model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +8,7 @@ import java.sql.Statement;
 public class display {
     public static void main(String[] args) {
         try {
-            Connection con = DriverManager.getConnection("jdbc:h2:" + "./Database/user", "system", "admin");
+            Connection con = DriverManager.getConnection("jdbc:h2:" + "./Database/model.user", "system", "admin");
             Statement stmt = con.createStatement();
             String sql = " select * FROM REGISTRATION";
             ResultSet rs = stmt.executeQuery(sql);

@@ -1,4 +1,4 @@
-package user;
+package model;
 
 import java.net.Socket;
 
@@ -6,15 +6,10 @@ public class User {
 
     private String userName;
     private String password;
-    private String ipAddress;
     private Socket socket = null;
 
     public void setSocket(Socket socket) {
         this.socket = socket;
-    }
-
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
     }
 
     public void setUserName(String username) {
@@ -30,8 +25,6 @@ public class User {
     public String getPassword() {
         return password;
     }
-
-    public String getIpAddress() { return ipAddress; }
 
     public Socket getSocket() { return this.socket; }
 }

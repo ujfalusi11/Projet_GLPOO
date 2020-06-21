@@ -1,6 +1,6 @@
-package conversation;
+package controller;
 
-import client.Client;
+import view.ClientView;
 
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -20,7 +20,7 @@ public class getConversation {
 
             while ((line = bufferedReader.readLine()) != null) {
                 if(line.startsWith("from") || line.startsWith("@")){
-                    StyledDocument doc = Client.displayText.getStyledDocument();
+                    StyledDocument doc = ClientView.displayText.getStyledDocument();
 
                     SimpleAttributeSet left = new SimpleAttributeSet();
                     StyleConstants.setAlignment(left, StyleConstants.ALIGN_LEFT);
@@ -37,7 +37,7 @@ public class getConversation {
                     catch(Exception e) {}
                 }
                 else {
-                    StyledDocument doc = Client.displayText.getStyledDocument();
+                    StyledDocument doc = ClientView.displayText.getStyledDocument();
 
                     SimpleAttributeSet left = new SimpleAttributeSet();
                     StyleConstants.setAlignment(left, StyleConstants.ALIGN_LEFT);

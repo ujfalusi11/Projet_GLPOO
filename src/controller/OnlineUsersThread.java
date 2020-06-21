@@ -1,4 +1,6 @@
-package onlineUsers;
+package controller;
+
+import view.OnlineUsersView;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -54,7 +56,7 @@ public class OnlineUsersThread implements Runnable{
                     SwingUtilities.invokeLater(
                             new Runnable() {
                                 public void run() {
-                                    OnlineUsers.userOnlineList.setListData(currentUsers);
+                                    OnlineUsersView.userOnlineList.setListData(currentUsers);
                                 }
                             }
                     );

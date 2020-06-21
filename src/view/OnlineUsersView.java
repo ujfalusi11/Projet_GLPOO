@@ -1,64 +1,25 @@
-package onlineUsers;
+package view;
 
-import home.Home;
-import user.User;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.net.InetAddress;
-import java.net.Socket;
 
-public class OnlineUsers {
+public class OnlineUsersView {
 
     private static JFrame onlineUsersWindow = new JFrame();
 
     //GUI Globals - Main Window
     private static JPanel gui = new JPanel();
-
     private static JPanel topBar = new JPanel();
-    private static JLabel top = new JLabel();
+    public static JLabel top = new JLabel();
     private static JPanel PLAFContainer = new JPanel();
-
     private static JPanel userList = new JPanel();
-    static JList userOnlineList = new JList();
+    public static JList<String> userOnlineList = new JList<String>();
     private static JScrollPane listScroll = new JScrollPane();
-    private static User user = new User();
 
-
-    public static void Connect(){
-        //user = Home.user;
-
-        try{
-            final int port = 2222;
-            user.setSocket(new Socket(InetAddress.getLocalHost(),port)) ;
-
-            OnlineUsersThread OUThread = new OnlineUsersThread(user.getSocket());
-
-            //sending UserName
-            ObjectOutputStream output = new ObjectOutputStream(user.getSocket().getOutputStream());
-            try{
-                output.writeObject(Home.HomeWindow.getTitle());
-                output.flush();
-            }catch(IOException ioException){
-                JOptionPane.showMessageDialog(null, "Error - UserName not Sent!");
-            }
-
-            top.setText("Online");
-
-            Thread X = new Thread(OUThread);
-            X.start();
-        }
-        catch(Exception x){
-            System.out.println(x);
-            JOptionPane.showMessageDialog(null, "Server Not Responding");
-            System.exit(0);
-        }
-    }
 
     public static void BuildOnlineUsersWindow(){
-        onlineUsersWindow.setTitle(Home.HomeWindow.getTitle());
+        onlineUsersWindow.setTitle(HomeView.HomeWindow.getTitle());
         ConfigureOUWindow();
         onlineUsersWindow.setVisible(true);
     }
@@ -91,7 +52,7 @@ public class OnlineUsers {
 
         PLAFContainer.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
 
-        JComboBox<?> themeChooser = new JComboBox(themeNames);
+        JComboBox<?> themeChooser = new JComboBox<>(themeNames);
         themeChooser.setSelectedIndex(ii-1);
 
         PLAFContainer.add(themeChooser);
