@@ -9,7 +9,9 @@ public class createTable {
         try{
             Connection con = DriverManager.getConnection("jdbc:h2:" + "./Database/user", "system", "admin");
             Statement stmt = con.createStatement();
-            String sql = " Create table if not exists registration "
+            String sql;
+            stmt.executeUpdate("Truncate table userInfo");
+            sql = " Create table if not exists userInfo "
                     + " (id INTEGER auto_increment, "
                     + " username VARCHAR(15), "
                     + " password VARCHAR(8), "
