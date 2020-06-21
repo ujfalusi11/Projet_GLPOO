@@ -10,7 +10,7 @@ public class display {
         try {
             Connection con = DriverManager.getConnection("jdbc:h2:" + "./Database/model.user", "system", "admin");
             Statement stmt = con.createStatement();
-            String sql = " select * FROM REGISTRATION";
+            String sql = " select * FROM userInfo";
             ResultSet rs = stmt.executeQuery(sql);
 
             while(rs.next())

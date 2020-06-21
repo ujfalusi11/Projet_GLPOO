@@ -39,7 +39,7 @@ public class RegisterController {
             if(alreadyExists(user.getUserName())){
                 JOptionPane.showMessageDialog(null, user.getUserName() + " is already taken. Choose a different one");
             }else{
-                String sql = " insert INTO REGISTRATION(username,password) values ('"+user.getUserName()+"' ,'"+user.getUserName()+"')";
+                String sql = " insert INTO userInfo(username,password) values ('"+user.getUserName()+"' ,'"+user.getUserName()+"')";
                 stmt.executeUpdate(sql);
                 JOptionPane.showMessageDialog(null, " Welcome " + user.getUserName());
                 con.close();
@@ -71,7 +71,7 @@ public class RegisterController {
         try {
             Connection con = DriverManager.getConnection("jdbc:h2:" + "./Database/model.user", "system", "admin");
             Statement stmt = con.createStatement();
-            String sql = " select * FROM REGISTRATION";
+            String sql = " select * FROM userInfo";
             ResultSet rs = stmt.executeQuery(sql);
 
             while(rs.next())
