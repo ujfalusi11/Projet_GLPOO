@@ -12,6 +12,7 @@ import java.awt.*;
 
 public class ClientView {
 
+   
     //Globals
     public static User user = new User();
 
