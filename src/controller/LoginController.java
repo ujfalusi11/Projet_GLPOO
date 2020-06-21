@@ -1,4 +1,4 @@
-package login;
+package controller;
 
 import model.User;
 import view.HomeView;
