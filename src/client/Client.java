@@ -1,7 +1,7 @@
 package client;
 
-//import conversation.deleteConversation;
-//import conversation.getConversation;
+import conversation.deleteConversation;
+import conversation.getConversation;
 import home.Home;
 import user.User;
 
@@ -26,7 +26,7 @@ public class Client {
 
 
 	//GUI Globals - Client Window
-	static JFrame clientWindow = new JFrame();
+	private static JFrame clientWindow = new JFrame();
 	private static JPanel gui = new JPanel();
 
 	private static JPanel topBar = new JPanel();
@@ -87,7 +87,7 @@ public class Client {
 		ConfigureClientWindow();
 		Connect();
 		ClientWindow_Action();
-		//getConversation.display(Home.HomeWindow.getTitle());
+		getConversation.display(Home.HomeWindow.getTitle());
 		clientWindow.setVisible(true);
 	}
 
@@ -237,7 +237,7 @@ public class Client {
 	private static void DELETECONV_ACTION() {
 		displayText.setText("");
 		displayText.revalidate();
-		//deleteConversation.clearTheFile(Home.HomeWindow.getTitle()+".txt");
+		deleteConversation.clearTheFile(Home.HomeWindow.getTitle()+".txt");
 	}
 
 	private static void USERONLINELIST_ACTION(MouseEvent e){
