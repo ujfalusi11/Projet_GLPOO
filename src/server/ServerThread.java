@@ -10,33 +10,32 @@ public class ServerThread extends Thread {
 	private Server server;
 	private Socket socket;
 	private ObjectInputStream input;
-	private ObjectOutputStream output;
 	private String username;
-	Object message;
-	
-	public ServerThread(Server server, Socket socket) throws IOException, ClassNotFoundException {
+	private Object message;
+
+	ServerThread(Server server, Socket socket) throws IOException, ClassNotFoundException {
 		// TODO Auto-generated constructor stub
 		this.server = server;
 		this.socket = socket;
-		output = new ObjectOutputStream(this.socket.getOutputStream());
+		ObjectOutputStream output = new ObjectOutputStream(this.socket.getOutputStream());
 		output.flush();
 		input = new ObjectInputStream(this.socket.getInputStream());
-		
+
 		username = (String) input.readObject();
-		
+
 		server.clients.put(username, output);
 		server.outputStreams.put(socket, output);
-		
+
 		server.sendToAll("!" + server.clients.keySet());
-		
+
 		server.showMessage("\n" + username + "(" + socket.getInetAddress().getHostAddress() + ") is online");
 		//starting the thread
 		start();
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public void run(){
-		
+
 		try {
 			//Thread will run until connections are present
 			while(true) {
@@ -45,7 +44,7 @@ public class ServerThread extends Thread {
 				}catch (Exception e){
 					stop();
 				}
-				
+
 				if (message.toString().contains("@EE@"))
 					server.sendToAll(message);
 				else {

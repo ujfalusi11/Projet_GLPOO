@@ -16,7 +16,7 @@ import java.sql.Statement;
 
 public class registration  {
 
-    public static User user = new User();
+    private static User user = new User();
 
     private static JFrame regWindow = new JFrame();
     private static JPanel regWindowGui = new JPanel();
@@ -86,7 +86,7 @@ public class registration  {
                 try {
 
                     File file = new File(user.getUserName()+".txt");
-                    file.delete();
+                    //file.delete();
                     if(file.createNewFile())System.out.println("Success!");
                     else System.out.println ("Error, file already exists.");
                 }
